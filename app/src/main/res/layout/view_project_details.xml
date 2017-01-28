@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:plainpie="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardMaxElevation="@dimen/cardview_default_elevation"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- MAIN LAYOUT -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- HEADER -->
+            <TextView
+                android:id="@+id/project_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/headerColor"
+                android:padding="8dp"
+                android:text="Aeroplan"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <!-- CONTENT -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- CODE COVERAGE -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="vertical">
+
+                    <az.plainpie.PieView
+                        android:id="@+id/pv_code_coverage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="12dp"
+                        plainpie:inner_pie_padding="15"
+                        plainpie:inner_text_visibility="true"
+                        plainpie:percentage="75"
+                        plainpie:percentage_size="15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:text="@string/code_coverage_label"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/codeCoverageColor" />
+
+                <!-- PROJECT STATUS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_status_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/build_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_status_label"
+                            android:textColor="@android:color/holo_red_light"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/version_name_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/version_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/version_name_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_date_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/build_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_date_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/toggle_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/toggle_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|end"
+                            android:text="@string/toggle_expand"
+                            android:textColor="#ff669900"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- EXPANDED LAYOUT -->
+        <LinearLayout
+            android:id="@+id/expanded_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="75"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_triggered_by_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/build_triggered_by"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_triggered_by_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/author_name_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/author_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/author_name_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/author_email_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/author_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_date_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/commit_comment_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/commit_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_date_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/commit_date_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/commit_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_date_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/project_health_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_health_label"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight="25"
+                    android:orientation="vertical">
+
+                    <az.plainpie.PieView
+                        android:id="@+id/pv_project_health"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="12dp"
+                        plainpie:inner_pie_padding="15"
+                        plainpie:inner_text_visibility="true"
+                        plainpie:percentage="25"
+                        plainpie:percentage_size="15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:text="@string/project_health_label"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/build_log_cta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="15dp"
+                        android:text="@string/build_url_expand"
+                        android:textAllCaps="true"
+                        android:textColor="#ff669900"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingBottom="3dp"
+                        android:text="@string/dataset_changes_label"
+                        android:textColor="@color/textColor"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/dataset_changes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
+                        android:text="@string/dataset_changes_label"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
+                        android:text="@string/build_url_label"
+                        android:textColor="@color/textColor"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/build_url"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp"
+                        android:text="@string/build_url_label"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
