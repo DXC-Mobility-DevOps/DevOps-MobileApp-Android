@@ -36,7 +36,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ProjectListViewHolder projectListViewHolder = (ProjectListViewHolder) holder;
-        projectListViewHolder.bindView(projectDetailsList.get(position), context);
+        projectListViewHolder.bindView(projectDetailsList.get(position), context, homeActivity);
     }
 
     @Override

@@ -3,15 +3,19 @@ package com.hpe.devops.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hpe.devops.entity.EndPoint;
 import com.hpe.devops.entity.ProjectDetails;
 import com.hpe.devops.entity.ProjectStatus;
 import com.hpe.devops.R;
+import com.hpe.devops.utility.NetworkHelper;
 import com.hpe.devops.utility.ViewAnimationHelper;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,9 +30,11 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
     TextView mBuildStatus;
     TextView mVersionNumber;
     TextView mBuildDate;
-    View mToggleView;
     TextView mToggleText;
+    TextView mTriggerNewBuild;
     View mExpandedLayout;
+    View mCurrentBuildProgressContainer;
+    StateProgressBar mCurrentBuildProgress;
     TextView mProjectHealthMessage;
     PieView mBuildHealthPercentage;
     TextView mBuildTriggeredBy;
@@ -56,6 +62,7 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
     String failedBuildLog;
 
     Context context;
+    HomeActivity homeActivity;
 
     public ProjectListViewHolder(View itemView) {
         super(itemView);
@@ -64,10 +71,15 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         mBuildStatus = (TextView) itemView.findViewById(R.id.build_status);
         mVersionNumber = (TextView) itemView.findViewById(R.id.version_number);
         mBuildDate = (TextView) itemView.findViewById(R.id.build_date);
-        mToggleView = itemView.findViewById(R.id.toggle_view);
-        mToggleView.setOnClickListener(this);
         mToggleText = (TextView) itemView.findViewById(R.id.toggle_text);
+        mToggleText.setOnClickListener(this);
+        mTriggerNewBuild = (TextView) itemView.findViewById(R.id.trigger_new_build);
+        mTriggerNewBuild.setOnClickListener(this);
         mExpandedLayout = itemView.findViewById(R.id.expanded_layout);
+        mCurrentBuildProgressContainer = itemView.findViewById(R.id.current_build_progress_container);
+        mCurrentBuildProgress = (StateProgressBar) itemView.findViewById(R.id.current_build_progress);
+        String[] buildDescription = {ProjectStatus.BUILD_PROGRESS_REPO, ProjectStatus.BUILD_PROGRESS_BUILDING, ProjectStatus.BUILD_PROGRESS_UNIT_TEST_CASE_CODE_COVERAGE, ProjectStatus.BUILD_PROGRESS_STATUS};
+        mCurrentBuildProgress.setStateDescriptionData(buildDescription);
         mProjectHealthMessage = (TextView) itemView.findViewById(R.id.project_health_message);
         mBuildHealthPercentage = (PieView) itemView.findViewById(R.id.pv_project_health);
         mBuildTriggeredBy = (TextView) itemView.findViewById(R.id.build_triggered_by);
@@ -95,8 +107,9 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         mFailedBuildNumber = (TextView) itemView.findViewById(R.id.failed_build_number);
     }
 
-    public void bindView(final ProjectDetails projectDetail, final Context context) {
+    public void bindView(final ProjectDetails projectDetail, final Context context, final HomeActivity homeActivity) {
         this.context = context;
+        this.homeActivity = homeActivity;
         setProjectDetails(projectDetail);
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -129,15 +142,27 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         if (projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.BLUE)) {
             mBuildStatus.setText(ProjectStatus.BUILD_SUCCESS);
             mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+            mCurrentBuildProgress.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
+            mCurrentBuildProgress.checkStateCompleted(true);
+            mCurrentBuildProgress.setAllStatesCompleted(true);
         } else if (projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.RED)) {
             mBuildStatus.setText(ProjectStatus.BUILD_FAILED);
             mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.holo_red_light));
+            mCurrentBuildProgress.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+            mCurrentBuildProgress.checkStateCompleted(true);
+            mCurrentBuildProgress.setCurrentStateDescriptionColor(context.getResources().getColor(android.R.color.holo_red_light));
         } else if (projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.ABORTED_ANIME) || projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.BLUE_ANIME)) {
             mBuildStatus.setText(ProjectStatus.BUILD_BUILDING);
             mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
+            mCurrentBuildProgress.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+            mCurrentBuildProgress.checkStateCompleted(true);
+            mTriggerNewBuild.setVisibility(View.GONE);
         } else if (projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.ABORTED)) {
             mBuildStatus.setText(ProjectStatus.BUILD_ABORTED);
             mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+            mCurrentBuildProgress.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+            mCurrentBuildProgress.checkStateCompleted(true);
+            mCurrentBuildProgress.setCurrentStateDescriptionColor(context.getResources().getColor(android.R.color.darker_gray));
         }
 
         // Other details
@@ -242,7 +267,10 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.toggle_view:
+            case R.id.trigger_new_build:
+                triggerNewBuild();
+                break;
+            case R.id.toggle_text:
                 if (mToggleText.getText().equals(context.getString(R.string.toggle_expand))) {
                     mToggleText.setText(context.getString(R.string.toggle_collapse));
                     mToggleText.setTextColor(Color.parseColor("#ffff8800"));
@@ -268,6 +296,14 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         }
     }
 
+    private void triggerNewBuild() {
+        mTriggerNewBuild.setVisibility(View.GONE);
+        mBuildStatus.setText(ProjectStatus.BUILD_BUILDING);
+        mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
+        new TriggerNewBuild().execute();
+
+    }
+
     private void showConsoleOutputActivity(String url, String buildType) {
         if (url != null && url.trim().length() > 1) {
             Intent intent = new Intent(context.getApplicationContext(), ConsoleActivity.class);
@@ -277,5 +313,38 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         } else {
             Toast.makeText(context.getApplicationContext(), context.getString(R.string.network_not_available_message), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private class TriggerNewBuild extends AsyncTask<Void, Void, Void> {
+        boolean networkAvailable = true;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (NetworkHelper.isNetworkAvailable(context.getApplicationContext())) {
+                startBuild();
+            } else {
+                networkAvailable = false;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aLong) {
+            super.onPostExecute(aLong);
+            if (!networkAvailable) {
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.network_not_available_message), Toast.LENGTH_SHORT).show();
+            } else {
+                homeActivity.refreshActivity();
+            }
+        }
+    }
+
+    private void startBuild() {
+        NetworkHelper.getResponseData(EndPoint.getTriggerNewBuildURL(mProjectName.getText().toString()));
     }
 }

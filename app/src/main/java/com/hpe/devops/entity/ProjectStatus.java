@@ -19,4 +19,9 @@ public class ProjectStatus {
     public static final String BUILD_TYPE_PROD = "Production Build Log";
     public static final String BUILD_TYPE_SUCCESS = "Successful Build Log";
     public static final String BUILD_TYPE_FAILED = "Failed Build Log";
+
+    public static final String BUILD_PROGRESS_REPO = "Check SCM";
+    public static final String BUILD_PROGRESS_BUILDING = "Build APK";
+    public static final String BUILD_PROGRESS_UNIT_TEST_CASE_CODE_COVERAGE = "Test Cases";
+    public static final String BUILD_PROGRESS_STATUS = "Build Status";
 }

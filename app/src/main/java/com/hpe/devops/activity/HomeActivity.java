@@ -31,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         refreshActivity();
     }
 
-    private void refreshActivity() {
+    protected void refreshActivity() {
         new LoadProjectDetails().execute();
     }
 

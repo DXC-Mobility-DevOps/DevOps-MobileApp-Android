@@ -19,11 +19,13 @@
     <string name="build_date_label">Build Date: </string>
     <string name="build_stability_label">Build Stability: </string>
 
+    <string name="trigger_new_build_label">Trigger New Build</string>
     <string name="toggle_expand">EXPAND</string>
     <string name="toggle_collapse">COLLAPSE</string>
 
     <string name="project_health_label">Project\nHealth</string>
     <string name="build_health_label">Build Health</string>
+    <string name="current_build_status_label">Current Build Progress</string>
     <string name="build_triggered_by_label">Build Triggered By: </string>
     <string name="current_prod_build_label">Current Production Build: </string>
     <string name="latest_successful_build_label">Latest Successful Build: </string>

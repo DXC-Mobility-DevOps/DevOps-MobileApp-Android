@@ -28,4 +28,11 @@ public class EndPoint {
         }
         return null;
     }
+
+    public static String getTriggerNewBuildURL(String projectName) {
+        if (projectName != null) {
+            return JENKINS_BASE + "buildByToken/build?job=" + projectName + "&token=build";
+        }
+        return null;
+    }
 }

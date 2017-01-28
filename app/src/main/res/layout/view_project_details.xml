@@ -173,25 +173,36 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/toggle_view"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="5dp"
-                        android:visibility="visible">
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/trigger_new_build"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/trigger_new_build_label"
+                            android:textAllCaps="true"
+                            android:textColor="#b13500"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/toggle_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right|end"
+                            android:layout_alignParentRight="true"
                             android:text="@string/toggle_expand"
+                            android:textAllCaps="true"
                             android:textColor="#ff669900"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </LinearLayout>
             </LinearLayout>
@@ -205,6 +216,51 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical"
             android:visibility="gone">
+
+            <!-- BUILD PROGRESS -->
+            <LinearLayout
+                android:id="@+id/current_build_progress_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/current_build_status_label"
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp" />
+
+                <com.kofigyan.stateprogressbar.StateProgressBar
+                    android:id="@+id/current_build_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="6dp"
+                    app:spb_animateToCurrentProgressState="false"
+                    app:spb_checkStateCompleted="true"
+                    app:spb_currentStateDescriptionColor="#009688"
+                    app:spb_currentStateNumber="one"
+                    app:spb_maxStateNumber="four"
+                    app:spb_stateBackgroundColor="#BDBDBD"
+                    app:spb_stateDescriptionColor="#808080"
+                    app:spb_stateDescriptionSize="8dp"
+                    app:spb_stateForegroundColor="#009688"
+                    app:spb_stateNumberBackgroundColor="#808080"
+                    app:spb_stateNumberForegroundColor="#eeeeee" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/codeCoverageColor" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
