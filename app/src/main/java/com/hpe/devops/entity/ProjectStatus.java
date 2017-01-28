@@ -6,6 +6,7 @@ public class ProjectStatus {
     public static final String ABORTED = "aborted";
     public static final String BLUE_ANIME = "blue_anime";
     public static final String ABORTED_ANIME = "aborted_anime";
+    public static final String RED_ANIME = "red_anime";
 
     public static final String BUILD_SUCCESS = "Success";
     public static final String BUILD_FAILED = "Failed";

@@ -151,7 +151,7 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
             mCurrentBuildProgress.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
             mCurrentBuildProgress.checkStateCompleted(true);
             mCurrentBuildProgress.setCurrentStateDescriptionColor(context.getResources().getColor(android.R.color.holo_red_light));
-        } else if (projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.ABORTED_ANIME) || projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.BLUE_ANIME)) {
+        } else if (projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.ABORTED_ANIME) || projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.BLUE_ANIME) || projectDetail.projectStatus.equalsIgnoreCase(ProjectStatus.RED_ANIME)) {
             mBuildStatus.setText(ProjectStatus.BUILD_BUILDING);
             mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
             mCurrentBuildProgress.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
@@ -298,8 +298,7 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
 
     private void triggerNewBuild() {
         mTriggerNewBuild.setVisibility(View.GONE);
-        mBuildStatus.setText(ProjectStatus.BUILD_BUILDING);
-        mBuildStatus.setTextColor(context.getResources().getColor(android.R.color.holo_orange_dark));
+        Toast.makeText(context.getApplicationContext(), context.getString(R.string.trigger_new_build_message), Toast.LENGTH_SHORT).show();
         new TriggerNewBuild().execute();
 
     }

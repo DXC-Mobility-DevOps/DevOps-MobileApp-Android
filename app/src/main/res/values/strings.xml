@@ -20,6 +20,7 @@
     <string name="build_stability_label">Build Stability: </string>
 
     <string name="trigger_new_build_label">Trigger New Build</string>
+    <string name="trigger_new_build_message">New build triggered. Please wait!</string>
     <string name="toggle_expand">EXPAND</string>
     <string name="toggle_collapse">COLLAPSE</string>
 
