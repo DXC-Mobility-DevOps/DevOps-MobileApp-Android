@@ -22,6 +22,10 @@ public class ProjectDetails {
     public String healthReportScore;
     public String lastBuild;
     public String lastBuildURL;
+    public String lastProductionBuild;
+    public String lastProductionBuildURL;
+    public String lastSuccessfulBuild;
+    public String lastSuccessfulBuildURL;
     public String lastFailedBuild;
     public String lastFailedBuildURL;
 

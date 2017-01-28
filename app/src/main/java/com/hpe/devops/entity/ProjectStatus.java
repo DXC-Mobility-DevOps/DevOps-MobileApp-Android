@@ -13,4 +13,10 @@ public class ProjectStatus {
     public static final String BUILD_BUILDING = "Building";
 
     public static final String BUILD_CONSOLE_URL = "BuildConsoleURL";
+    public static final String BUILD_NAME = "BuildName";
+
+    public static final String BUILD_TYPE_LATEST = "Latest Build Log";
+    public static final String BUILD_TYPE_PROD = "Production Build Log";
+    public static final String BUILD_TYPE_SUCCESS = "Successful Build Log";
+    public static final String BUILD_TYPE_FAILED = "Failed Build Log";
 }

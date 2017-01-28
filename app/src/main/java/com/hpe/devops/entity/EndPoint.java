@@ -22,16 +22,9 @@ public class EndPoint {
         return null;
     }
 
-    public static String getBuildConsoleLogURL(String projectName, String buildNumber) {
-        if (projectName != null) {
-            return JENKINS_BASE + "job/" + projectName + "/" + buildNumber + "/consoleText";
-        }
-        return null;
-    }
-
     public static String getBuildConsoleLogURL(String url) {
         if (url != null) {
-            return url + "/consoleText";
+            return url + "consoleText";
         }
         return null;
     }

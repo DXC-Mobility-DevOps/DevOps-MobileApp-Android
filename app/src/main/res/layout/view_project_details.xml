@@ -244,9 +244,108 @@
                             android:textColor="@color/textColorBlack"
                             android:textSize="12sp" />
 
+                        <TextView
+                            android:id="@+id/build_log_cta"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="6dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/build_url_cta_label"
+                            android:textColor="#ff669900"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/prod_build_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/current_prod_build_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/prod_build_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="#65"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/successful_build_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/latest_successful_build_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/successful_build_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="#69"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/failed_build_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="@string/latest_failed_build_label"
+                            android:textColor="@color/textColor"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/failed_build_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingBottom="3dp"
+                            android:paddingTop="3dp"
+                            android:text="#74"
+                            android:textColor="@color/textColorBlack"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/author_name_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -274,6 +373,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/author_email_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -294,13 +394,14 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="3dp"
                             android:paddingTop="3dp"
-                            android:text="@string/build_date_label"
+                            android:text="@string/author_email_label"
                             android:textColor="@color/textColorBlack"
                             android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/commit_comment_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -321,13 +422,14 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="3dp"
                             android:paddingTop="3dp"
-                            android:text="@string/build_date_label"
+                            android:text="@string/commit_comment_label"
                             android:textColor="@color/textColorBlack"
-                            android:textSize="12sp" />
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/commit_date_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -348,26 +450,9 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="3dp"
                             android:paddingTop="3dp"
-                            android:text="@string/build_date_label"
+                            android:text="@string/commit_date_label"
                             android:textColor="@color/textColorBlack"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/project_health_message"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="3dp"
-                            android:paddingTop="3dp"
-                            android:text="@string/build_health_label"
-                            android:textColor="@color/textColorBlack"
-                            android:textSize="12sp" />
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
@@ -400,19 +485,18 @@
                         android:textColor="@android:color/black"
                         android:textSize="10sp" />
 
+
                     <TextView
-                        android:id="@+id/build_log_cta"
+                        android:id="@+id/project_health_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="15dp"
-                        android:text="@string/build_url_expand"
-                        android:textAllCaps="true"
-                        android:textColor="#ff669900"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:paddingBottom="10dp"
+                        android:paddingRight="3dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/build_health_label"
+                        android:textColor="@color/textColorBlack"
+                        android:textSize="10sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -424,6 +508,7 @@
                 android:paddingLeft="6dp">
 
                 <LinearLayout
+                    android:id="@+id/dataset_changes_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -460,17 +545,17 @@
                         android:layout_gravity="left"
                         android:paddingBottom="3dp"
                         android:paddingTop="3dp"
-                        android:text="@string/build_url_label"
+                        android:text="@string/project_url_label"
                         android:textColor="@color/textColor"
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/build_url"
+                        android:id="@+id/project_url"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="3dp"
                         android:paddingTop="3dp"
-                        android:text="@string/build_url_label"
+                        android:text="@string/project_url_label"
                         android:textColor="@color/textColorBlack"
                         android:textSize="10sp" />
 

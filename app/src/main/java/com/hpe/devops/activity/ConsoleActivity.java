@@ -38,6 +38,10 @@ public class ConsoleActivity extends AppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
+            String titleString = getIntent().getStringExtra(ProjectStatus.BUILD_NAME);
+            if (titleString != null && titleString.length() > 0) {
+                supportActionBar.setTitle(titleString);
+            }
         }
     }
 

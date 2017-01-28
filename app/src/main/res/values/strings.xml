@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HPE DevOps</string>
     <string name="app_display_name">HPE Mobility DevOps</string>
+    <string name="console_activity_label">Build Console Log</string>
     <string name="app_version">1.0</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -9,7 +10,7 @@
     <string name="action_refresh">Refresh</string>
 
     <string name="please_wait_message">Loading project details. Please wait!</string>
-    <string name="network_not_available_message">Unable to load project details.\nPlease check connectivity.</string>
+    <string name="network_not_available_message">Unable to load details.\nPlease check connectivity.</string>
     <string name="no_project_message">Project details not available.</string>
 
     <string name="code_coverage_label">Code\nCoverage</string>
@@ -24,14 +25,16 @@
     <string name="project_health_label">Project\nHealth</string>
     <string name="build_health_label">Build Health</string>
     <string name="build_triggered_by_label">Build Triggered By: </string>
+    <string name="current_prod_build_label">Current Production Build: </string>
+    <string name="latest_successful_build_label">Latest Successful Build: </string>
+    <string name="latest_failed_build_label">Last Failed Build: </string>
     <string name="author_name_label">Author Name: </string>
     <string name="author_email_label">Author Email: </string>
     <string name="commit_comment_label">Commit Comment: </string>
     <string name="commit_date_label">Commit Date: </string>
     <string name="dataset_changes_label">File Changes: </string>
-    <string name="build_url_label">Build URL: </string>
+    <string name="project_url_label">Project URL: </string>
 
-    <string name="build_url_expand">BUILD LOG</string>
-    <string name="console_activity_label">Console Log</string>
+    <string name="build_url_cta_label">View Latest Build Log</string>
 
 </resources>

@@ -6,8 +6,8 @@ import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.hpe.devops.entity.EndPoint;
 import com.hpe.devops.entity.ProjectDetails;
 import com.hpe.devops.entity.ProjectStatus;
 import com.hpe.devops.R;
@@ -32,15 +32,28 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
     TextView mProjectHealthMessage;
     PieView mBuildHealthPercentage;
     TextView mBuildTriggeredBy;
+    View mAuthorNameContainer;
     TextView mAuthorName;
+    View mAuthorEmailContainer;
     TextView mAuthorEmail;
+    View mCommitCommentContainer;
     TextView mCommitComment;
+    View mCommitDateContainer;
     TextView mCommitDate;
+    View mDatasetChangesContainer;
     TextView mDatasetChanges;
-    TextView mBuildUrl;
-    TextView mBuildLogCTA;
-
-    String consoleOutputURL;
+    TextView mProjectUrl;
+    View mBuildLogCTA;
+    String buildLog;
+    View mProdBuildContainer;
+    TextView mProdBuildNumber;
+    String prodBuildLog;
+    View mSuccessfulBuildContainer;
+    TextView mSuccessfulBuildNumber;
+    String successfulBuildLog;
+    View mFailedBuildContainer;
+    TextView mFailedBuildNumber;
+    String failedBuildLog;
 
     Context context;
 
@@ -58,14 +71,28 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         mProjectHealthMessage = (TextView) itemView.findViewById(R.id.project_health_message);
         mBuildHealthPercentage = (PieView) itemView.findViewById(R.id.pv_project_health);
         mBuildTriggeredBy = (TextView) itemView.findViewById(R.id.build_triggered_by);
+        mAuthorNameContainer = itemView.findViewById(R.id.author_name_container);
         mAuthorName = (TextView) itemView.findViewById(R.id.author_name);
+        mAuthorEmailContainer = itemView.findViewById(R.id.author_email_container);
         mAuthorEmail = (TextView) itemView.findViewById(R.id.author_email);
+        mCommitCommentContainer = itemView.findViewById(R.id.commit_comment_container);
         mCommitComment = (TextView) itemView.findViewById(R.id.commit_comment);
+        mCommitDateContainer = itemView.findViewById(R.id.commit_date_container);
         mCommitDate = (TextView) itemView.findViewById(R.id.commit_date);
+        mDatasetChangesContainer = itemView.findViewById(R.id.dataset_changes_container);
         mDatasetChanges = (TextView) itemView.findViewById(R.id.dataset_changes);
-        mBuildUrl = (TextView) itemView.findViewById(R.id.build_url);
-        mBuildLogCTA = (TextView) itemView.findViewById(R.id.build_log_cta);
+        mBuildLogCTA = itemView.findViewById(R.id.build_log_cta);
         mBuildLogCTA.setOnClickListener(this);
+        mProjectUrl = (TextView) itemView.findViewById(R.id.project_url);
+        mProdBuildContainer = itemView.findViewById(R.id.prod_build_container);
+        mProdBuildContainer.setOnClickListener(this);
+        mProdBuildNumber = (TextView) itemView.findViewById(R.id.prod_build_number);
+        mSuccessfulBuildContainer = itemView.findViewById(R.id.successful_build_container);
+        mSuccessfulBuildContainer.setOnClickListener(this);
+        mSuccessfulBuildNumber = (TextView) itemView.findViewById(R.id.successful_build_number);
+        mFailedBuildContainer = itemView.findViewById(R.id.failed_build_container);
+        mFailedBuildContainer.setOnClickListener(this);
+        mFailedBuildNumber = (TextView) itemView.findViewById(R.id.failed_build_number);
     }
 
     public void bindView(final ProjectDetails projectDetail, final Context context) {
@@ -132,21 +159,57 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
         }
 
         mBuildTriggeredBy.setText(projectDetail.buildTriggeredBy);
-        mAuthorName.setText(projectDetail.changeSetAuthorName);
-        mAuthorEmail.setText(projectDetail.changeSetAuthorEmailID);
-        mCommitComment.setText(projectDetail.commitComment);
-        mCommitDate.setText(projectDetail.commitDate);
+        if (projectDetail.changeSetAuthorName == null || projectDetail.changeSetAuthorName.length() == 0) {
+            mAuthorNameContainer.setVisibility(View.GONE);
+        } else {
+            mAuthorName.setText(projectDetail.changeSetAuthorName);
+        }
+        if (projectDetail.changeSetAuthorEmailID == null || projectDetail.changeSetAuthorEmailID.length() == 0) {
+            mAuthorEmailContainer.setVisibility(View.GONE);
+        } else {
+            mAuthorEmail.setText(projectDetail.changeSetAuthorEmailID);
+        }
+        if (projectDetail.commitComment == null || projectDetail.commitComment.length() == 0) {
+            mCommitCommentContainer.setVisibility(View.GONE);
+        } else {
+            mCommitComment.setText(projectDetail.commitComment);
+        }
+        if (projectDetail.commitDate == null || projectDetail.commitDate.length() == 0) {
+            mCommitDateContainer.setVisibility(View.GONE);
+        } else {
+            mCommitDate.setText(projectDetail.commitDate);
+        }
         String dataSet = "";
         if (projectDetail.changeSet != null) {
             for (String str : projectDetail.changeSet) {
                 dataSet += str + "\n";
             }
-        } else {
-            dataSet = "\u2014";
         }
-        mDatasetChanges.setText(dataSet);
-        mBuildUrl.setText(projectDetail.lastBuildURL);
-        consoleOutputURL = EndPoint.getBuildConsoleLogURL(projectDetail.lastBuildURL);
+        if (dataSet.trim().equals("") || dataSet.trim().length() == 0) {
+            mDatasetChangesContainer.setVisibility(View.GONE);
+        } else {
+            mDatasetChanges.setText(dataSet.trim());
+        }
+        mProjectUrl.setText(projectDetail.projectURL);
+        buildLog = projectDetail.lastBuildURL;
+        if (projectDetail.lastProductionBuild != null && projectDetail.lastProductionBuild.trim().length() > 0) {
+            mProdBuildNumber.setText("#" + projectDetail.lastProductionBuild);
+            prodBuildLog = projectDetail.lastProductionBuildURL;
+        } else {
+            mProdBuildNumber.setText("\u2014");
+        }
+        if (projectDetail.lastSuccessfulBuild != null && projectDetail.lastSuccessfulBuild.trim().length() > 0) {
+            mSuccessfulBuildNumber.setText("#" + projectDetail.lastSuccessfulBuild);
+            successfulBuildLog = projectDetail.lastSuccessfulBuildURL;
+        } else {
+            mSuccessfulBuildNumber.setText("\u2014");
+        }
+        if (projectDetail.lastFailedBuild != null && projectDetail.lastFailedBuild.trim().length() > 0) {
+            mFailedBuildNumber.setText("#" + projectDetail.lastFailedBuild);
+            failedBuildLog = projectDetail.lastFailedBuild;
+        } else {
+            mFailedBuildNumber.setText("\u2014");
+        }
     }
 
     private int getPercentageColor(float percentage) {
@@ -191,14 +254,28 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
                 }
                 break;
             case R.id.build_log_cta:
-                showConsoleOutputActivity(consoleOutputURL);
+                showConsoleOutputActivity(buildLog, ProjectStatus.BUILD_TYPE_LATEST);
+                break;
+            case R.id.prod_build_container:
+                showConsoleOutputActivity(prodBuildLog, ProjectStatus.BUILD_TYPE_PROD);
+                break;
+            case R.id.successful_build_container:
+                showConsoleOutputActivity(successfulBuildLog, ProjectStatus.BUILD_TYPE_SUCCESS);
+                break;
+            case R.id.failed_build_container:
+                showConsoleOutputActivity(failedBuildLog, ProjectStatus.BUILD_TYPE_FAILED);
                 break;
         }
     }
 
-    private void showConsoleOutputActivity(String consoleOutputURL) {
-        Intent intent = new Intent(context.getApplicationContext(), ConsoleActivity.class);
-        intent.putExtra(ProjectStatus.BUILD_CONSOLE_URL, consoleOutputURL);
-        context.startActivity(intent);
+    private void showConsoleOutputActivity(String url, String buildType) {
+        if (url != null && url.trim().length() > 1) {
+            Intent intent = new Intent(context.getApplicationContext(), ConsoleActivity.class);
+            intent.putExtra(ProjectStatus.BUILD_CONSOLE_URL, url);
+            intent.putExtra(ProjectStatus.BUILD_NAME, buildType);
+            context.startActivity(intent);
+        } else {
+            Toast.makeText(context.getApplicationContext(), context.getString(R.string.network_not_available_message), Toast.LENGTH_SHORT).show();
+        }
     }
 }

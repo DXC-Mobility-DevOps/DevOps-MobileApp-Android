@@ -118,18 +118,32 @@ public abstract class ResponseHelper {
                                 projectDetails.healthReportScore = healthReportObject.getString("score");
                             }
                         }
-                        if (!jsonObjectProjectExtendedBuildDetails.isNull("lastBuild")) {
+                        if (!jsonObjectProjectExtendedBuildDetails.isNull("lastBuild")) {               // Last Build
                             JSONObject lastBuild = jsonObjectProjectExtendedBuildDetails.getJSONObject("lastBuild");
                             if (lastBuild != null && lastBuild.length() > 0) {
                                 projectDetails.lastBuild = lastBuild.getString("number");
                                 projectDetails.lastBuildURL = lastBuild.getString("url");
                             }
                         }
-                        if (!jsonObjectProjectExtendedBuildDetails.isNull("lastFailedBuild")) {
-                            JSONObject lastFailedBuild = jsonObjectProjectExtendedBuildDetails.getJSONObject("lastFailedBuild");
-                            if (lastFailedBuild != null && lastFailedBuild.length() > 0) {
-                                projectDetails.lastFailedBuild = lastFailedBuild.getString("number");
-                                projectDetails.lastFailedBuildURL = lastFailedBuild.getString("url");
+                        if (!jsonObjectProjectExtendedBuildDetails.isNull("lastStableBuild")) {         // Production
+                            JSONObject lastStableBuild = jsonObjectProjectExtendedBuildDetails.getJSONObject("lastStableBuild");
+                            if (lastStableBuild != null && lastStableBuild.length() > 0) {
+                                projectDetails.lastProductionBuild = lastStableBuild.getString("number");
+                                projectDetails.lastProductionBuildURL = lastStableBuild.getString("url");
+                            }
+                        }
+                        if (!jsonObjectProjectExtendedBuildDetails.isNull("lastSuccessfulBuild")) {     // Successful Build
+                            JSONObject lastSuccessfulBuild = jsonObjectProjectExtendedBuildDetails.getJSONObject("lastSuccessfulBuild");
+                            if (lastSuccessfulBuild != null && lastSuccessfulBuild.length() > 0) {
+                                projectDetails.lastSuccessfulBuild = lastSuccessfulBuild.getString("number");
+                                projectDetails.lastSuccessfulBuildURL = lastSuccessfulBuild.getString("url");
+                            }
+                        }
+                        if (!jsonObjectProjectExtendedBuildDetails.isNull("lastUnsuccessfulBuild")) {   // Failed Build
+                            JSONObject lastUnsuccessfulBuild = jsonObjectProjectExtendedBuildDetails.getJSONObject("lastUnsuccessfulBuild");
+                            if (lastUnsuccessfulBuild != null && lastUnsuccessfulBuild.length() > 0) {
+                                projectDetails.lastFailedBuild = lastUnsuccessfulBuild.getString("number");
+                                projectDetails.lastFailedBuildURL = lastUnsuccessfulBuild.getString("url");
                             }
                         }
                     }
