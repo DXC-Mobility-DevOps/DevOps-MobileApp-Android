@@ -21,6 +21,7 @@
 
     <string name="trigger_new_build_label">Trigger New Build</string>
     <string name="trigger_new_build_message">New build triggered. Please wait!</string>
+    <string name="trigger_new_build_failed_message">Unable to start new build. Please try again.</string>
     <string name="toggle_expand">EXPAND</string>
     <string name="toggle_collapse">COLLAPSE</string>
 

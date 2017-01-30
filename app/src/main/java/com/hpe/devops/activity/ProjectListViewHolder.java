@@ -316,11 +316,13 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
 
     private class TriggerNewBuild extends AsyncTask<Void, Void, Void> {
         boolean networkAvailable = true;
+        boolean buildStarted = false;
 
         @Override
         protected Void doInBackground(Void... params) {
             if (NetworkHelper.isNetworkAvailable(context.getApplicationContext())) {
                 startBuild();
+                buildStarted = true;
             } else {
                 networkAvailable = false;
             }
@@ -337,8 +339,16 @@ public class ProjectListViewHolder extends RecyclerView.ViewHolder implements Vi
             super.onPostExecute(aLong);
             if (!networkAvailable) {
                 Toast.makeText(context.getApplicationContext(), context.getString(R.string.network_not_available_message), Toast.LENGTH_SHORT).show();
-            } else {
+            } else if (buildStarted) {
+                try {
+                    // Wait for 10 seconds before refresh, as it take time to add new job in Jenkins.
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 homeActivity.refreshActivity();
+            } else {
+                Toast.makeText(context.getApplicationContext(), context.getString(R.string.trigger_new_build_failed_message), Toast.LENGTH_SHORT).show();
             }
         }
     }
