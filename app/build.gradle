@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+def appVersionName() {
+    return "2.0"
+}
+
+def appVersionCode() {
+    return 5
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -8,13 +16,27 @@ android {
         applicationId "com.hpe.devops"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode appVersionCode()
+        versionName appVersionName()
+        setProperty("archivesBaseName", "Mobility-DevOps")
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        dev {
+            // Dev build
+        }
+
+        uat {
+            // UAT build
+        }
+
+        prod {
+            // Prod build
         }
     }
 }
