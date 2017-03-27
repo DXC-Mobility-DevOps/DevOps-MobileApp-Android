@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.hpe.devops"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode appVersionCode()
         versionName appVersionName()

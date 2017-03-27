@@ -23,6 +23,7 @@ public abstract class ResponseHelper {
         try {
             JSONObject projectListJSONObject = new JSONObject(projectList);
             jsonArrayProjectList = projectListJSONObject.getJSONArray("jobs");
+            jsonArrayProjectList.remove(4);
         } catch (JSONException je) {
             jsonArrayProjectList = null;
             je.printStackTrace();

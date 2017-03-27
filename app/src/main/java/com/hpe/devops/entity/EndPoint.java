@@ -1,7 +1,7 @@
 package com.hpe.devops.entity;
 
 public class EndPoint {
-    private static final String BASE_IP = "http://35.162.132.98";
+    private static final String BASE_IP = "http://16.181.234.214";
     public static final String SONAR_BASE = BASE_IP + ":9000/";
     public static final String JENKINS_BASE = BASE_IP + ":8080/";
 
